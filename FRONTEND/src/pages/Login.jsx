@@ -16,14 +16,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      // const response = await axios.post(
+      //   "http://localhost:4000/api/v1/user/login",
+      //   { email, password, confirmPassword, role: "Patient" }, // Patient role
+      //   {
+      //     withCredentials: true,
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
       const response = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
-        { email, password, confirmPassword, role: "Patient" }, // Patient role
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,
+        { email, password, confirmPassword, role: "Patient" },
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         }
       );
+
       toast.success(response.data.message);
       setIsAuthenticated(true);
       navigateTo("/");
