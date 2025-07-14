@@ -1,6 +1,8 @@
+// 
 export const generateToken = (user, message, statusCode, res) => {
   const token = user.generateJsonWebToken();
-  // Determine the cookie name based on the user's role
+
+  // Use different cookie names for Admin and Patient
   const cookieName = user.role === 'Admin' ? 'adminToken' : 'patientToken';
 
   res
@@ -10,6 +12,8 @@ export const generateToken = (user, message, statusCode, res) => {
         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
       ),
       httpOnly: true,
+      secure: true,          // ✅ Required for HTTPS in production
+      sameSite: "None",      // ✅ Required for cross-site cookies (Vercel ↔ Render)
     })
     .json({
       success: true,
