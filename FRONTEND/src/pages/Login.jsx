@@ -107,7 +107,7 @@ const Login = () => {
         <hr />
         <p>Are you an Admin?</p>
         <a
-          href="http://localhost:5174/login"
+          href="https://hospital-management-system-t3u4.vercel.app/login"
           target="_blank"
           rel="noopener noreferrer"
         >
