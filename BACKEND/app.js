@@ -13,11 +13,32 @@ import  appointmentRouter from "./router/appointmentRouter.js";
 const app = express();
 config({path: "./config/config.env"});
 
+// app.use(
+//   cors({
+//     origin: [process.env.FRONTEND_URL, process.env.FRONTEND_DEPLOY_URL ,process.env.DASHBOARD_URL],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true, // ✅ Allow credentials
+//   })
+// );
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_DEPLOY_URL,
+  process.env.DASHBOARD_URL,
+];
+
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_DEPLOY_URL ,process.env.DASHBOARD_URL],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("❌ Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // ✅ Allow credentials
+    credentials: true,
   })
 );
 
