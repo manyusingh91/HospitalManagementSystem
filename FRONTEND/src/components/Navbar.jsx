@@ -16,7 +16,6 @@ const Navbar = () => {
       })
       .then((res) => {
         toast.success(res.data.message);
-        setIsAuthenticated(false);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
