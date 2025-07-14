@@ -26,17 +26,6 @@ const Login = () => {
       );
       toast.success(response.data.message);
       setIsAuthenticated(true);
-      const fetchUser = async() =>{
-      try {
-        const response = await axios.get("https://hospitalmanagementsystem-1-nogo.onrender.com/api/v1/user/patient/me", { withCredentials: true});
-        setIsAuthenticated(true);
-        setUser(response.data.user);
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser({});
-      }
-    };
-    fetchUser();
       navigateTo("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
